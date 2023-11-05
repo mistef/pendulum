@@ -18,18 +18,16 @@
         <canvas id = "canvasThree"></canvas>
         <div id="parameters">
           <div id="firstCol" class="col">
-            <div id="radiusText" class="infoText">Ακτίνα: 3 cm</div>
-            <input type="range" min="20" max="50" value="30" class="slider" id="radiusSlider">
+            <div id="lengthText" class="infoText">Μήκος: 100 cm</div>
+            <input type="range" min="10" max="100" value="100" class="slider" id="lengthSlider">
             <div id="massText" class="infoText">Μάζα: 200 gr</div>
             <input type="range" min="5" max="100" value="20" class="slider" id="massSlider">
             <div id="gravityText" class="infoText">g: 9,81 m/s</div>
             <input type="range" min="0" max="2000" value="981" class="slider" id="gravitySlider">
           </div>
           <div id="secCol" class="col">
-            <div id="lengthText" class="infoText">Μήκος: 100 cm</div>
-            <input type="range" min="10" max="100" value="100" class="slider" id="lengthSlider">
-            <div id="pressureText" class="infoText">Πίεση: 1 atm</div>
-            <input type="range" min="0" max="20" value="10" class="slider" id="pressureSlider">
+            <div id="pressureText" class="infoText">Αντίσταση αέρα: 1x</div>
+            <input type="range" min="0" max="10" value="1" class="slider" id="pressureSlider">
             <div class="check">
               <input type="checkbox" id="rulerShow" name="ruler" value="On">
               <label for="rulerShow" id="rulerText" class="checkText"> Γωνιόμετρο</label><br>
@@ -40,24 +38,35 @@
             </div>
           </div>
           <div id="thirdCol" class="col">
-            <div id="timeText" class="infoText">Χρόνος: 1,0x</div>
-            <input type="range" min="0" max="10" value="2" class="slider" id="timeSlider">
-
+              <div id="buttonStartStop" class="buttonStart" onclick="this.classList.toggle('active')">
+                <div class="buttonBackground" x="0" y="0" width="100" height="100"></div>
+                <div class="buttonIcon" width="100" height="100">
+                  <div class="movPart leftPart" x="0" y="0" width="100" height="100" fill="#fff"></div>
+                  <div class="movPart rightPart" x="0" y="0" width="100" height="100" fill="#fff"></div>
+                </div>
+                <div class="cursorArea"></div>
+              </div>
+            <div id="timeText" class="infoText">Επιτάχυνση χρόνου: 1,0x</div>
+            <input type="range" min="1" max="10" value="2" class="slider" id="timeSlider">
           </div>
-          <div id="thirdCol" class="col">
+
+          <div id="fourthCol" class="col">
             <div id="oscText" class="infoText">Ταλαντώσεις: 10</div>
             <input type="range" min="1" max="100" value="10" class="slider" id="oscSlider">
             <div id="oscTimeText" class="infoText">0/10 &emsp; 0,000s</div>
+
+
+            <button type="button" id="resetButton">Μέτρηση</button>
+
             <div id="errorInfo" class="infoText">Τυπική απόκλιση (ms)</div>
             <label class="radioLabel">
-              <input type="radio" name="error" id="radio2" value="2" checked="checked" />
+              <input type="radio" name="error" id="radio2" value="2"  checked="checked" />
               <label for="radio2">50</label>
-              <input type="radio" name="error" id="radio5" value="5" />
+              <input type="radio" name="error" id="radio5" value="5"/>
               <label for="radio5">100</label>
               <input type="radio" name="error" id="radio10" value="10" />
               <label for="radio10">200</label>
             </label>
-            <button type="button" id="resetButton">Εκκίνηση</button>
             
           </div>
         </div>
