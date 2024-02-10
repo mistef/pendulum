@@ -1,1 +1,185 @@
-#container,.col{position:relative}.checkText,.infoText{font-weight:700;font-size:large;color:#ccc}.buttonBackground,.cursorArea{cursor:pointer;position:absolute}body{margin:0}@media (max-aspect-ratio:4/3){#container{width:100vw}}@media (min-aspect-ratio:4/3){#container{height:100vh}}@media (aspect-ratio:4/3){#container{height:100vh}}#container{aspect-ratio:4/3;margin:auto;min-height:600px;min-width:800px}#canvasThree{display:block;background-color:#add8e6;width:100%;height:100%}#parameters{position:absolute;bottom:0;height:25%;width:100%;background-color:#2e2e2e;user-select:none;border-top-left-radius:50px;border-top-right-radius:50px}.infoText{margin:5% auto auto 12%}.slider{margin:5% auto auto 10%;width:80%;accent-color:#ff4400}.col{display:inline-block;height:100%;width:20%;vertical-align:middle}.buttonBackground,.buttonIcon,.cursorArea,.movPart{height:50px;width:50px}.check{display:block;margin:7% auto auto 12%}#resetButton{display:block;margin:auto;font-size:110%;border-radius:20px;background-color:#ffb59a}#resetButton:hover{background-color:#ffa07e}#oscTimeText{margin-bottom:5%}#errorInfo{font-size:100%;margin-bottom:3%;margin-top:5%}.radioLabel{font-family:system-ui,sans-serif;font-size:100%;color:#ccc;margin-left:15%;margin-top:0}#fourthCol{float:right}.buttonStart{align-items:center;display:flex;justify-content:center;margin:5% auto auto}.buttonBackground{background:#f4471f;border-radius:20%}.buttonStart:active .buttonBackground{background:#e93c15}.buttonIcon{transform:rotate(0deg);transition:transform .5s}.leftPart,.rightPart{transition:clip-path 250ms}.movPart{background:#fff;position:absolute}.leftPart{clip-path:polygon(25% 21%,49% 35%,75% 50%,25% 51%)}.rightPart{clip-path:polygon(25% 79%,49% 65%,75% 50%,25% 49%)}.cursorArea{border-radius:50%;-webkit-tap-highlight-color:transparent}.active .buttonIcon{transform:rotate(-90deg)}.active .leftPart{clip-path:polygon(25% 25%,75% 25%,75% 40%,25% 40%)}.active .rightPart{clip-path:polygon(25% 75%,75% 75%,75% 60%,25% 60%)}
+body{
+    margin:0;
+}
+
+
+@media (max-aspect-ratio: 4/3) {
+    #container {
+        width:100vw;
+    }
+}
+  
+@media (min-aspect-ratio: 4/3) {
+    #container {
+        height:100vh;
+    }
+}
+  
+@media (aspect-ratio: 4/3) {
+    #container {
+        height:100vh;
+    }
+}
+
+#container{
+    position: relative;
+    aspect-ratio: 4/3;
+    margin: auto;
+    min-height: 600px;
+    min-width: 800px;
+}
+
+#canvasThree{
+    display: block;
+    background-color:#add8e6;
+    width: 100%;
+    height: 100%;
+}
+
+#parameters{
+    position: absolute;
+    bottom:0%;
+    height:25%;
+    width:100%;
+    background-color: #2e2e2e;
+    user-select: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.infoText{
+    font-size:large;
+    font-weight: bold;
+    color: #ccc;
+    margin:auto;
+    margin-top: 5%;
+    margin-left: 12%;
+}
+
+.slider{
+    margin:auto;
+    margin-top: 5%;
+    margin-left: 10%;
+    width:80%;
+    accent-color: #ff4400;
+}
+
+.col{
+    position:relative;
+    display: inline-block;
+    height:100%;
+    width: 20%;
+    vertical-align: middle;
+}
+
+.check{
+    display:block;
+    margin: auto;
+    margin-top: 7%;
+    margin-left: 12%;
+}
+
+.checkText{
+    color:#ccc;
+    font-weight: bold;
+    font-size: large;
+}
+
+#resetButton{
+    display: block;
+    margin:auto;
+    font-size:110%;
+    border-radius: 20px;
+    background-color: #ffb59a;
+}
+
+#resetButton:hover {
+    background-color: #ffa07e;
+}
+
+#oscTimeText{
+    margin-bottom:5%;
+
+}
+
+#errorInfo{
+    font-size: 100%;
+    margin-bottom: 3%;
+    margin-top: 5%;
+    
+}
+
+.radioLabel {
+    font-family: system-ui, sans-serif;
+    font-size: 100%;
+    color:#ccc;
+
+    margin-left:15%;
+    margin-top: 0%;
+
+}
+
+
+#fourthCol{
+    float: right;
+}
+
+
+
+.buttonStart {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.buttonBackground {
+    background: #f4471f;
+    border-radius: 20%;
+    cursor: pointer;
+    height: 50px;
+    position: absolute;
+    width: 50px;
+}
+
+  .buttonStart:active .buttonBackground {
+    background: #e93c15;
+  }
+  .buttonIcon {
+    height: 50px;
+    transform: rotate(-0deg);
+    transition: transform 500ms;
+    width: 50px;
+  }
+  .movPart {
+    background: white;
+    height: 50px;
+    position: absolute;
+    width: 50px;
+  }
+  .leftPart {
+    clip-path: polygon(25% 21%, 49% 35%, 75% 50%, 25% 51%);
+    transition: clip-path 250ms;
+  }
+  .rightPart {
+    clip-path: polygon(25% 79%, 49% 65%, 75% 50%, 25% 49%);
+    transition: clip-path 250ms;
+  }
+  .cursorArea {
+    border-radius: 50%;
+    cursor: pointer;
+    height: 50px;
+    position: absolute;
+    -webkit-tap-highlight-color: transparent;
+    width: 50px;
+  }
+  .active .buttonIcon {
+    transform: rotate(-90deg);
+  }
+  .active .leftPart {
+    clip-path: polygon(25% 25%, 75% 25%, 75% 40%, 25% 40%);
+  }
+  .active .rightPart {
+    clip-path: polygon(25% 75%, 75% 75%, 75% 60%, 25% 60%);
+  }
