@@ -291,16 +291,19 @@ const aspect = 4/3
 const near = 0.1
 const far = 10
 
-//const camera = new THREE.OrthographicCamera( -4/3,4/3,1.3,-0.7, near, far)
-const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+const topCamera = 1.3;
+const leftCamera = -29/24;
+
+const camera = new THREE.OrthographicCamera( leftCamera,-leftCamera,topCamera,topCamera+(leftCamera*3/4*2), near, far)
+//const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 //camera.position.z = 9
 camera.position.z = 1.15
 camera.position.y = 1.2/2 - 0.2
 camera.position.x = 0
 
 
-//camera.position.y = 3
-//camera.lookAt( 0,0,0 )
+camera.position.y = 0.;
+camera.lookAt( 0,0,0 )
 
 const scene = new THREE.Scene()
 
@@ -386,17 +389,7 @@ addStand()
 let [rope, ropeData] = createRope(parameters.length, 100);
 scene.add( rope );
 
-// const materialRope = new THREE.LineBasicMaterial({
-// 	color: 0x0000ff
-// });
 
-// const points = [];
-// points.push( new THREE.Vector3( 0, object.topP, 0 ) );
-// points.push( new THREE.Vector3( 0, object.topP - parameters.length, 0 ) );
-// const geometryRope = new THREE.BufferGeometry().setFromPoints( points );
-
-// const rope = new THREE.Line( geometryRope, materialRope );
-// scene.add( rope );
 
 
 function addStand(){
