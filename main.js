@@ -25,7 +25,7 @@ const massText = document.querySelector( '#massText' )
 massSlider.addEventListener("input", function(){
     let mass = this.value/100;
     parameters.mass = mass
-    massText.textContent = "Μάζα: " + Math.round(mass*1000) + " gr";
+    massText.textContent = Math.round(mass*1000) + " gr";
     lengthSlider.dispatchEvent(new Event("input"));
 
 
@@ -49,9 +49,9 @@ const gravitySlider = document.querySelector( '#gravitySlider' )
 const gravityText = document.querySelector( '#gravityText' )
 
 gravitySlider.addEventListener("input", function(){
-    let gravity = this.value/100;
+    let gravity = this.value/10;
     parameters.gravity = -gravity
-    gravityText.textContent = "g: " + (gravity).toFixed(2).toString().replace(".", ",") + " m/s²";
+    gravityText.textContent = (gravity).toFixed(1).toString().replace(".", ",") + " m/s²";
 
 
 
@@ -64,7 +64,7 @@ const lengthText = document.querySelector( '#lengthText' )
 lengthSlider.addEventListener("input", function(){
     let length = this.value/100;
     parameters.length = length - parameters.radius;
-    lengthText.textContent = "Μήκος: " + Math.round(this.value)+ " cm";
+    lengthText.textContent = + Math.round(this.value)+ " cm";
 
     if(solidRod){
         let mass = parameters.mass + parameters.rodMass;
@@ -139,7 +139,7 @@ const pressureText = document.querySelector( '#pressureText' )
 pressureSlider.addEventListener("input", function(){
     let pressure = this.value*this.value;
     parameters.pressure = pressure
-    pressureText.textContent = "Αντίσταση αέρα: " + (pressure) + "x";
+    pressureText.textContent = (pressure) + "x";
 })
 
 //the checkbox for the solid rod or Spring
@@ -149,12 +149,18 @@ rodShow.addEventListener("change", function(){
         scene.add(rod);
         scene.remove( rope );
         solidRod = true;
+
+        elasticitySlider.style.display = "none";
+        document.getElementById("elasticityTextHead").style.display = "none";
         
     }
     else{
         scene.remove(rod);
         scene.add( rope );
         solidRod = false;
+
+        elasticitySlider.style.display = "block";
+        document.getElementById("elasticityTextHead").style.display = "block";
     }
     lengthSlider.dispatchEvent(new Event("input"));
 })
@@ -266,6 +272,7 @@ let parameters = {
     length : 0.95,
     radius : 0.05,
     pressure : 1,
+    elasticity : 1,
     rodMass : 0.1,
     time: 1,
     oscillations: 10,
@@ -679,7 +686,7 @@ function positionStep(dt){
     force.y *= parameters.length/object.leq
 
     //calculate the Foce of the String
-    let fcoef = solidRod==true ? 20000 : 1000;
+    let fcoef = solidRod==true ? 20000 : 1000/parameters.elasticity;
     let fString = fcoef*(distanceString()-parameters.length);
     //fString = fString > 0 ? fString : 0;
     fString = fString > 0 ? fString : 1*fString*solidRod;
@@ -701,7 +708,11 @@ function positionStep(dt){
     //Calculate the resistance due to the stretching of the string
     if (fString){
         let uString = Math.sin(theta)*object.ux+Math.cos(theta)*object.uy
-        let resString = -50*uString
+        let factor = 1/parameters.elasticity;
+        if (factor > 1){
+            factor = 1;
+        }
+        let resString = -50*uString*factor;
 
         force.x += Math.sin(theta)*resString;
         force.y += Math.cos(theta)*resString;
@@ -1286,3 +1297,29 @@ function moveCamera(state){
     camera.position.y -= dy;
     camera.updateProjectionMatrix();
 }
+
+
+const elasticitySlider = document.getElementById("elasticitySlider");
+const elasticityText = document.getElementById("elasticityText");
+
+elasticitySlider.addEventListener("input", function(){
+    let elasticity = this.value/10;
+    parameters.elasticity = elasticity;
+    elasticityText.textContent = elasticity + "x";
+})
+
+
+
+
+const rodMassSlider = document.getElementById("rodMassSlider");
+const rodMassText = document.getElementById("rodMassText");
+
+rodMassSlider.style.display = "none";
+document.getElementById("rodMassTextHead").style.display = "none";
+
+rodMassSlider.addEventListener("input", function(){
+    let rmass = this.value/20;
+    parameters.rodMass = rmass;
+    rodMassText.textContent = Math.round(rmass*1000) + " gr";
+    lengthSlider.dispatchEvent(new Event("input"));
+})

@@ -1,5 +1,6 @@
 body{
     margin:0;
+    font-family: sans-serif;
 }
 
 
@@ -38,22 +39,40 @@ body{
 
 #parameters{
     position: absolute;
-    bottom:0%;
+    bottom:1%;
+    left: 1%;
     height:25%;
-    width:100%;
+    width:40%;
     background-color: #2e2e2e;
+    border-radius: 30px;
     user-select: none;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
+    border-style: solid;
+}
+
+#parametersLeft{
+    position: absolute;
+    bottom:1%;
+    right: 1%;
+    height:25%;
+    width:40%;
+    background-color: #2e2e2e;
+    border-radius: 30px;
+    user-select: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-style: solid;
 }
 
 .infoText{
     font-size:large;
-    font-weight: bold;
+
     color: #ccc;
     margin:auto;
     margin-top: 5%;
     margin-left: 12%;
+    font-size:8.5cqw;
 }
 
 .slider{
@@ -68,7 +87,7 @@ body{
     position:relative;
     display: inline-block;
     height:100%;
-    width: 20%;
+    width: 45%;
     vertical-align: middle;
     container-type: inline-size;
 }
@@ -82,8 +101,9 @@ body{
 
 .checkText{
     color:#ccc;
-    font-weight: bold;
-    font-size: large;
+
+    font-size: 8cqw;
+    
 }
 
 #resetButton{
@@ -194,3 +214,6 @@ body{
     font-size:5cqw;
   }
   
+  .parametersValue{
+    color: #fae29f;
+  }
