@@ -291,19 +291,19 @@ const aspect = 4/3
 const near = 0.1
 const far = 10
 
-const topCamera = 1.3;
-const leftCamera = -29/24;
+
+let isFull = true;
+const topCamera = 1.3*(1+0.8*isFull);
+const leftCamera = -29/24*(1+0.8*isFull);
+
 
 const camera = new THREE.OrthographicCamera( leftCamera,-leftCamera,topCamera,topCamera+(leftCamera*3/4*2), near, far)
 //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-//camera.position.z = 9
+
 camera.position.z = 1.15
-camera.position.y = 1.2/2 - 0.2
-camera.position.x = 0
+camera.position.x = isFull*0
+camera.position.y = isFull*(0.07)
 
-
-camera.position.y = 0.;
-camera.lookAt( 0,0,0 )
 
 const scene = new THREE.Scene()
 
@@ -426,7 +426,7 @@ addAngleMeter();
 
 function addAngleMeter(){
     let width = 1.1 + 0.105
-    let height = 1.1 + 0.105
+    let height = (1.1 + 0.105)*2
     let posX = -width/2
     let posY = height/2
 
@@ -437,16 +437,17 @@ function addAngleMeter(){
     let textureAngle
 
     canvasAngle.width = 1100;
-    canvasAngle.height = 1100;
+    canvasAngle.height = 1100*2;
     ctx.clearRect(0, 0, canvasAngle.height, canvasAngle.height);
 
     // Create the angle outline
 
     ctx.beginPath();
-    ctx.fillStyle = "rgba(256, 256, 256, 0.3)"
+    ctx.fillStyle = "rgba(256, 256, 256, 0.4)"
     ctx.strokeStyle = "rgba(0, 0, 0, 1)"
     ctx.font = "35px Arial";
-    ctx.arc(canvasAngle.width, 0, canvasAngle.width/1.085, 0, 2*Math.PI);
+    //ctx.arc(canvasAngle.width, 0, canvasAngle.width/1.085, 0, 2*Math.PI);
+    ctx.arc(canvasAngle.width, canvasAngle.height/2, canvasAngle.width/1.085, 0, 2*Math.PI);
     ctx.rect(canvasAngle.width, 0, -canvasAngle.width, canvasAngle.height);
     ctx.closePath();
     ctx.fill();
@@ -458,23 +459,23 @@ function addAngleMeter(){
 
     for (let j = 0; j < 3; j++){    //draw three times because opacity stays low
         //draw the 10deg lines
-        for (let i = 0; i<=90; i += 10){
-            drawAngleLine(i, 30, canvasAngle.width/1.085)
+        for (let i = -90; i<=90; i += 10){
+            drawAngleLine(i, 30, canvasAngle.width/1.085, canvasAngle.height)
         }
 
         //draw the 5deg lines
-        for (let i = 0; i<=90; i += 5){
-            drawAngleLine(i, 20, canvasAngle.width/1.085)
+        for (let i = -90; i<=90; i += 5){
+            drawAngleLine(i, 20, canvasAngle.width/1.085, canvasAngle.height)
         }
 
         //draw the 1deg lines
-        for (let i = 0; i<=90; i += 1){
-            drawAngleLine(i, 10, canvasAngle.width/1.085)
+        for (let i = -90; i<=90; i += 1){
+            drawAngleLine(i, 10, canvasAngle.width/1.085, canvasAngle.height)
         }
 
         //draw the 10deg Text
-        for (let i = 10; i<90; i += 10){
-            drawAngleText(i, 80, canvasAngle.width/1.085)
+        for (let i = -80; i<90; i += 10){
+            drawAngleText(i, 80, canvasAngle.width/1.085, canvasAngle.height)
         }
     }
 
@@ -482,12 +483,12 @@ function addAngleMeter(){
 
 
 
-    function drawAngleLine(angle, length, radius){
+    function drawAngleLine(angle, length, radius, height){
         angle *= Math.PI/180
-        let pY = radius*Math.sin(angle);
+        let pY = radius*Math.sin(angle)+height/2;
         let pX = canvasAngle.width - radius*Math.cos(angle);
 
-        let pY2 = (radius+length)*Math.sin(angle);
+        let pY2 = (radius+length)*Math.sin(angle)+height/2;
         let pX2 = canvasAngle.width - (radius+length)*Math.cos(angle);
         ctx.beginPath();
         ctx.moveTo(pX, pY);
@@ -495,11 +496,23 @@ function addAngleMeter(){
         ctx.stroke();
     }
 
-    function drawAngleText(angle, length, radius){
+    function drawAngleText(angle, length, radius, height){
         let angleP = Math.PI/180*angle
 
-        let pY2 = (radius+length)*Math.sin(angleP);
+        let pY2 = (radius+length)*Math.sin(angleP) + height/2;
         let pX2 = canvasAngle.width - (radius+length)*Math.cos(angleP);
+        
+        if (angle === 0){
+            pY2 += 10;
+        }
+        if (angle <0){
+            pY2 += 10;
+            pX2 -= 10;
+        }
+        if (angle < -50){
+            pY2 += 10;
+            pX2 -= 10;
+        }
 
         ctx.fillText(90-angle, pX2, pY2);
 
@@ -618,12 +631,27 @@ function calculateObjectPosition(dt){
 
     obj.position.x = object.x;
 
-    if(object.y >= object.topP){
-        object.y = object.topP
-        object.ux = 0;
-        object.uy = 0;
-    }
+    // if(object.y >= object.topP){
+    //     object.y = object.topP
+    //     object.ux = 0;
+    //     object.uy = 0;
+    // }
     obj.position.y = object.y;
+
+    
+    // if (solidRod){
+    //     let theta = Math.atan(-object.x/(object.topP - object.y));
+    //     let delta = distanceString()-parameters.length
+    //     if(object.y>object.topP){
+    //         delta *= -1;
+    //     }
+    //     object.x += Math.sin(theta)*delta
+    //     object.y += Math.cos(theta)*delta
+    //     obj.position.x = object.x
+    //     obj.position.y = object.y
+
+    // }
+
 
 }
 
@@ -635,12 +663,20 @@ function positionStep(dt){
     force.y *= parameters.length/object.leq
 
     //calculate the Foce of the String
-    let fcoef = solidRod==true ? 10000 : 1000;
+    let fcoef = solidRod==true ? 20000 : 1000;
     let fString = fcoef*(distanceString()-parameters.length);
-    fString = fString > 0 ? fString : 0;
+    //fString = fString > 0 ? fString : 0;
+    fString = fString > 0 ? fString : 1*fString*solidRod;
     let theta = Math.atan(-object.x/(object.topP - object.y));
+
+
+    if(object.y>object.topP){
+        fString *= -1;
+    }
+
     force.x += Math.sin(theta)*fString;
     force.y += Math.cos(theta)*fString;
+
 
     //object.ux /= 1+(fString*fString/10000)*Math.sin(theta);
     //object.uy /= 1+(fString*fString/10000)*Math.cos(theta);
@@ -655,6 +691,10 @@ function positionStep(dt){
         force.y += Math.cos(theta)*resString;
     }
 
+    // if (solidRod){  //force calculated instantly because there is no stretching
+    //     force.x = Math.cos(theta)*parameters.gravity*parameters.mass*Math.sin(theta);
+    //     force.y = Math.cos(theta)*parameters.gravity*parameters.mass*Math.cos(theta);    
+    // }
 
     //add the air resistance
     let dragC = 1/2*1.3*0.47*parameters.radius*parameters.radius*Math.PI*parameters.pressure
@@ -726,10 +766,16 @@ function render( time ) {
 
     let theta = Math.atan(object.x/(object.topP - object.y));
     dash.geometry.attributes.position.setXYZ(0,  0, object.topP, 0 );
-    dash.geometry.attributes.position.setXYZ(1,  0 + 1.12*Math.sin(theta), object.topP - 1.12*Math.cos(theta), 0 );
+    if (object.y <= object.topP){
+        dash.geometry.attributes.position.setXYZ(1,  0 + 1.12*Math.sin(theta), object.topP - 1.12*Math.cos(theta), 0 );
+    }
+    else{
+        dash.geometry.attributes.position.setXYZ(1,  0 - 1.12*Math.sin(theta), object.topP + 1.12*Math.cos(theta), 0 );
+    }
+    
     dash.geometry.attributes.position.needsUpdate = true;
 
-    if(rulerShow.checked && theta < 0 && distanceString()*1.01>parameters.length){
+    if(rulerShow.checked && distanceString()*1.01>parameters.length && object.x < 0){
         dash.visible = true;
     }
     else{
@@ -738,7 +784,7 @@ function render( time ) {
 
     renderer.render( scene, camera )
 
-
+    //console.log(Math.atan(-object.x/(object.topP - object.y))); 
 
     requestAnimationFrame( render )
 }
@@ -795,14 +841,17 @@ window.addEventListener('mousemove', event => {
         obj.position.y = intersect[0].point.y
         object.y = intersect[0].point.y
 
-        if (intersect[0].point.y > object.topP ){
-            obj.position.y = object.topP
-            object.y = object.topP
-        }
+        // if (intersect[0].point.y > object.topP ){
+        //     obj.position.y = object.topP
+        //     object.y = object.topP
+        // }
 
         if (distanceString() > parameters.length){
             let theta = Math.atan(-object.x/(object.topP - object.y));
             let delta = distanceString()-parameters.length
+            if(object.y>object.topP){
+                delta *= -1;
+            }
             object.x += Math.sin(theta)*delta
             object.y += Math.cos(theta)*delta
             obj.position.x = object.x
@@ -812,6 +861,9 @@ window.addEventListener('mousemove', event => {
         if (solidRod){
             let theta = Math.atan(-object.x/(object.topP - object.y));
             let delta = distanceString()-parameters.length
+            if(object.y>object.topP){
+                delta *= -1;
+            }
             object.x += Math.sin(theta)*delta
             object.y += Math.cos(theta)*delta
             obj.position.x = object.x
@@ -972,8 +1024,19 @@ function updateRope(data, objP, topP){
         if (ratio > 0.99){
             isStretched = true;
             let theta = Math.atan(object.x/(object.topP - object.y));
-            let x = segmentLength/0.78*i*Math.sin(theta);
-            let y = -segmentLength/0.78*i*Math.cos(theta) + objP.y;
+
+            let x;
+            let y;
+
+            if (object.y> object.topP){
+                x = -segmentLength/0.78*i*Math.sin(theta);
+                y = +segmentLength/0.78*i*Math.cos(theta) + objP.y;
+            }
+            else{
+                x = segmentLength/0.78*i*Math.sin(theta);
+                y = -segmentLength/0.78*i*Math.cos(theta) + objP.y;
+            }
+
             rope.geometry.attributes.position.setXYZ( i, x, y, 0 );
         }
         else{
@@ -1111,9 +1174,16 @@ function updateRod(angle){
     //from -90 to +90 degs
     //angle *= Math.PI/180
     rod.rotation.z = (angle)
+    //console.log(angle);
 
-    rod.position.x = Math.sin(angle)/2;
-    rod.position.y = object.topP - Math.cos(angle)/2;
+    if (object.y <= object.topP){
+        rod.position.x = Math.sin(angle)/2;
+        rod.position.y = object.topP - Math.cos(angle)/2;
+    }
+    else{
+        rod.position.x = -Math.sin(angle)/2;
+        rod.position.y = (object.topP + Math.cos(angle)/2);
+    }
 
 }
 
