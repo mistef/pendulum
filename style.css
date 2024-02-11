@@ -70,6 +70,7 @@ body{
     height:100%;
     width: 20%;
     vertical-align: middle;
+    container-type: inline-size;
 }
 
 .check{
@@ -183,3 +184,13 @@ body{
   .active .rightPart {
     clip-path: polygon(25% 75%, 75% 75%, 75% 60%, 25% 60%);
   }
+
+
+  #switchCamera{
+    width: 30%;
+    border-radius: 15px;
+    background-color: #f4471f;
+    color:white;
+    font-size:5cqw;
+  }
+  

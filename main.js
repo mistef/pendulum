@@ -292,16 +292,32 @@ const near = 0.1
 const far = 10
 
 
-let isFull = true;
-const topCamera = 1.3*(1+0.8*isFull);
-const leftCamera = -29/24*(1+0.8*isFull);
+let isFull = false;
+
+const halfCamera = {
+    left : -29/24*(1+0.8*0),
+    right : 29/24*(1+0.8*0),
+    top : 1.3*(1+0.8*0),
+    bottom : 1.3*(1+0.8*0) - 29/24*(1+0.8*0) * 3/4 *2,
+    y : 0
+}
+
+const fullCamera = {
+    left : -29/24*(1+0.8*!0),
+    right : 29/24*(1+0.8*!0),
+    top : 1.3*(1+0.8*!0),
+    bottom : 1.3*(1+0.8*!0) - 29/24*(1+0.8*!0) * 3/4 *2,
+    y : 0.07
+}
 
 
-const camera = new THREE.OrthographicCamera( leftCamera,-leftCamera,topCamera,topCamera+(leftCamera*3/4*2), near, far)
+const camera = new THREE.OrthographicCamera( halfCamera.left, halfCamera.right, halfCamera.top, halfCamera.bottom, near, far)
 //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
+
+
 camera.position.z = 1.15
-camera.position.x = isFull*0
+
 camera.position.y = isFull*(0.07)
 
 
@@ -782,6 +798,8 @@ function render( time ) {
         dash.visible = false;
     }
 
+    moveCamera(isFull);
+
     renderer.render( scene, camera )
 
     //console.log(Math.atan(-object.x/(object.topP - object.y))); 
@@ -1222,4 +1240,49 @@ function NormSInv(p) {
     }
 
     return retVal;
+}
+
+
+
+const switchCameraButton = document.getElementById("switchCamera");
+
+switchCameraButton.addEventListener("click", function(){
+    isFull = !isFull;
+    if (isFull){
+        switchCameraButton.textContent = "Κάμερα: Πλήρης"
+    }
+    else{
+        switchCameraButton.textContent = "Κάμερα: Ημικύκλιο"
+    }
+})
+
+let oldState = isFull;
+function moveCamera(state){
+    if (state === oldState){
+        return;
+    }
+
+    let step = 20;
+    if (oldState == true){
+        step *= -1;
+    }
+
+    let dleft = (halfCamera.left - fullCamera.left)/step;
+    let dright = (halfCamera.right - fullCamera.right)/step;
+    let dtop = (halfCamera.top - fullCamera.top)/step;
+    let dbottom = (halfCamera.bottom - fullCamera.bottom)/step;
+    let dy = (halfCamera.y - fullCamera.y)/step;
+
+
+    if ((camera.left >= halfCamera.left && oldState == true) || (camera.left <= fullCamera.left && oldState == false)){
+        oldState = state;
+        return;
+    }
+
+    camera.left -= dleft;
+    camera.right -= dright;
+    camera.top -= dtop;
+    camera.bottom -= dbottom;
+    camera.position.y -= dy;
+    camera.updateProjectionMatrix();
 }
