@@ -82,6 +82,9 @@ lengthSlider.addEventListener("input", function(){
         //this is in order to not make the object jump
         let theta = Math.atan(-object.x/(object.topP - object.y));
         let delta = distanceString()-parameters.length
+        if(object.y > object.topP){
+            delta *= -1;
+        }
         object.x += Math.sin(theta)*delta
         object.y += Math.cos(theta)*delta
         obj.position.x = object.x
