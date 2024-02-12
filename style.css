@@ -28,6 +28,7 @@ body{
     margin: auto;
     min-height: 600px;
     min-width: 800px;
+    container-type: inline-size;
 }
 
 #canvasThree{
@@ -150,34 +151,36 @@ body{
 .buttonStart {
     align-items: center;
     display: flex;
-    justify-content: center;
-    margin: auto;
-    margin-top: 5%;
+    justify-content: space-between;
+    margin:auto;
+    margin-top: 1%;
+    width: 28%;
+    height: 95%;
 }
 
 .buttonBackground {
     background: #f4471f;
     border-radius: 20%;
     cursor: pointer;
-    height: 50px;
+    height: 95%;
     position: absolute;
-    width: 50px;
+    width: 28%;
 }
 
   .buttonStart:active .buttonBackground {
     background: #e93c15;
   }
   .buttonIcon {
-    height: 50px;
+    height: 100%;
     transform: rotate(-0deg);
     transition: transform 500ms;
-    width: 50px;
+    width: 100%;
   }
   .movPart {
     background: white;
-    height: 50px;
+    height: 100%;
     position: absolute;
-    width: 50px;
+    width: 100%;
   }
   .leftPart {
     clip-path: polygon(25% 21%, 49% 35%, 75% 50%, 25% 51%);
@@ -190,10 +193,10 @@ body{
   .cursorArea {
     border-radius: 50%;
     cursor: pointer;
-    height: 50px;
+    height: 95%;
     position: absolute;
     -webkit-tap-highlight-color: transparent;
-    width: 50px;
+    width: 28%;
   }
   .active .buttonIcon {
     transform: rotate(-90deg);
@@ -207,13 +210,67 @@ body{
 
 
   #switchCamera{
-    width: 30%;
-    border-radius: 15px;
-    background-color: #f4471f;
+    width: 17%;
+    border-radius: 10px;
+    background-color:#2e2e2e;
     color:white;
-    font-size:5cqw;
+    font-size:1.2cqw;
+    border-style: solid;
+    position: absolute;
+    bottom:16%;
+    left: 42.5%;
+    width: 14.9%;
   }
-  
+
   .parametersValue{
     color: #fae29f;
   }
+
+  #mainSimButtons{
+    position: absolute;
+    bottom: 19%;
+    left: 42.5%;
+    width: 14.5%;
+    height: 5.5%;
+    border-style: solid;
+    background-color: #2e2e2e;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .buttonRefr {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1%;
+    width: 28%;
+    height: 95%;
+    border-radius: 30%;
+}
+
+.buttonRefr:active {
+    background-color: #4b4b4b;
+}
+
+.buttonFF {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1%;
+    width: 28%;
+    height: 95%;
+    border-radius: 100%;
+}
+
+.buttonFF:active {
+    background-color: #4b4b4b;
+}
+
+#switchCameraText {
+    color: #fae29f;
+}

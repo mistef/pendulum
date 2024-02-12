@@ -44,19 +44,35 @@
           </div>
 
         </div>
+        <div id = "mainSimButtons">
+          <div id="buttonRefresh" class="buttonRefr" onclick="this.classList.toggle('active')">
+            <embed src="reloadSvg.svg" style = "width:100%"/>
+            <div class="cursorArea"></div>
+          </div>
+
+          <div id="buttonStartStop" class="buttonStart" onclick="this.classList.toggle('active')">
+            <div class="buttonBackground" x="0" y="0" width="100" height="100"></div>
+            <div class="buttonIcon" width="100" height="100">
+              <div class="movPart leftPart" x="0" y="0" width="100" height="100" fill="#fff"></div>
+              <div class="movPart rightPart" x="0" y="0" width="100" height="100" fill="#fff"></div>
+            </div>
+            <div class="cursorArea"></div>
+          </div>
+
+          <div id="buttonFastForward" class="buttonFF" onclick="this.classList.toggle('active')">
+            <embed id = "fastForwardImg" src="fastForwardSvg.svg" style = "width:100%"/>
+            <div class="cursorArea"></div>
+          </div>
+
+        </div>
+        <button type="button" id="switchCamera">Κάμερα: <span id = "switchCameraText">Ημικύκλιο</span></button>
+
         <div id="parametersLeft">
           <div id="thirdCol" class="col">
-            <div id="buttonStartStop" class="buttonStart" onclick="this.classList.toggle('active')">
-              <div class="buttonBackground" x="0" y="0" width="100" height="100"></div>
-              <div class="buttonIcon" width="100" height="100">
-                <div class="movPart leftPart" x="0" y="0" width="100" height="100" fill="#fff"></div>
-                <div class="movPart rightPart" x="0" y="0" width="100" height="100" fill="#fff"></div>
-              </div>
-              <div class="cursorArea"></div>
-            </div>
+
           <div id="timeText" class="infoText">Επιτάχυνση χρόνου: 1,0x</div>
           <input type="range" min="1" max="10" value="2" class="slider" id="timeSlider">
-          <button type="button" id="switchCamera">Κάμερα: Ημικύκλιο</button>
+
         </div>
 
         <div id="fourthCol" class="col">

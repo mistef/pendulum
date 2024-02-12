@@ -1256,14 +1256,18 @@ function NormSInv(p) {
 
 
 const switchCameraButton = document.getElementById("switchCamera");
+const switchCameraText = document.getElementById("switchCameraText");
 
 switchCameraButton.addEventListener("click", function(){
+    if (oldState !== isFull){
+        return;
+    }
     isFull = !isFull;
     if (isFull){
-        switchCameraButton.textContent = "Κάμερα: Πλήρης"
+        switchCameraText.textContent = "Πλήρης"
     }
     else{
-        switchCameraButton.textContent = "Κάμερα: Ημικύκλιο"
+        switchCameraText.textContent = "Ημικύκλιο"
     }
 })
 
@@ -1322,4 +1326,37 @@ rodMassSlider.addEventListener("input", function(){
     parameters.rodMass = rmass;
     rodMassText.textContent = Math.round(rmass*1000) + " gr";
     lengthSlider.dispatchEvent(new Event("input"));
+})
+
+
+
+
+
+const buttonRefresh = document.getElementById("buttonRefresh");
+
+buttonRefresh.addEventListener("click", function(){
+    object.x = 0;
+    object.y = 0;
+    lengthSlider.dispatchEvent(new Event("input"));
+    object.ux = 0;
+    object.uy = 0;
+})
+
+
+
+const buttonFastForward = document.getElementById("buttonFastForward");
+let fastForward = false;
+
+buttonFastForward.addEventListener("click", function(){
+    fastForward = !fastForward;
+
+    if (fastForward){
+        parameters.time = 4;
+        document.getElementById("fastForwardImg").src = "./fastForwardSvgActive.svg";
+    }
+    else{
+        parameters.time = 1;
+        document.getElementById("fastForwardImg").src = "./fastForwardSvg.svg";
+    }
+    
 })
