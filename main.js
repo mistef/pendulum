@@ -283,7 +283,7 @@ let parameters = {
     oscillations: 1,
     timeCounter: 0,
     oscilationCounter: -0.1,
-    maxError: 2,
+    maxError: 50,
     errorFactor: 1,
     timeOn: 1
 }
