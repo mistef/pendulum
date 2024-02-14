@@ -204,16 +204,13 @@ oscSlider.addEventListener("input", function(){
 document.body.addEventListener('change', function (e) {
     let target = e.target;
     switch (target.id) {
-        case 'radio2':
-            //parameters.maxError = 2;
+        case 'radio50':
             parameters.maxError = 50;
             break;
-        case 'radio5':
-            //parameters.maxError = 5;
+        case 'radio100':
             parameters.maxError = 100;
             break;
-        case 'radio10':
-            //parameters.maxError = 10;
+        case 'radio200':
             parameters.maxError = 200;
             break;
     }
@@ -228,7 +225,11 @@ resetButton.addEventListener("click", function(){
     counting = true;
     parameters.errorFactor = 1 + (Math.random()-0.5)*parameters.maxError/100*2
     parameters.timeCounter = NormSInv(Math.random())*parameters.maxError//[Math.random() - 0.5]*200
-    //console.log(NormSInv(Math.random())*100);
+    setOscilations("00");
+
+    if(contOnMeasure.checked && timeStopped){
+        buttonStartStop.dispatchEvent(new Event("click"));
+    }
 })
 
 //the start stop time button
@@ -258,6 +259,7 @@ buttonStartStop.addEventListener("click", function(){
 
 
 const renderer = new THREE.WebGLRenderer( { antialias: true, canvas } )
+renderer.setPixelRatio( window.devicePixelRatio );
 renderer.shadowMap.enabled = true
 
 let object ={
@@ -278,7 +280,7 @@ let parameters = {
     elasticity : 1,
     rodMass : 0.1,
     time: 1,
-    oscillations: 10,
+    oscillations: 1,
     timeCounter: 0,
     oscilationCounter: -0.1,
     maxError: 2,
@@ -767,9 +769,13 @@ function render( time ) {
         timeShow = timeShow < 0 ? 0 : timeShow
         if (parameters.timeCounter>200){
             oscTimeText.textContent = Math.floor(timeShow) + "/" + Math.round(parameters.oscillations) + " \u2003 "+ (parameters.timeCounter/1000).toFixed(3).toString().replace(".", ",") +"s"
+            setOscilations(Math.floor(timeShow));
+            setTime(parameters.timeCounter/1000);
         }
         else{
             oscTimeText.textContent = Math.floor(timeShow) + "/" + Math.round(parameters.oscillations) + " \u2003 "+ (0/1000).toFixed(3).toString().replace(".", ",") +"s"
+            setTime(0/1000);
+            setOscilations(Math.floor(timeShow));
         }
     }
 
@@ -1354,12 +1360,69 @@ buttonFastForward.addEventListener("click", function(){
     fastForward = !fastForward;
 
     if (fastForward){
-        parameters.time = 4;
+        parameters.timeOn = 4;
         document.getElementById("fastForwardImg").src = "./fastForwardSvgActive.svg";
+        
+        if(!timeStopped){
+            parameters.time = 4;
+        }
     }
     else{
-        parameters.time = 1;
+        parameters.timeOn = 1;
         document.getElementById("fastForwardImg").src = "./fastForwardSvg.svg";
     }
     
 })
+
+$("#timeDisplayValue").sevenSeg({ digits: 4, value: "0000" });
+function setTime (time){
+    if(time<10){
+        time = time.toFixed(3);
+    }
+    else if (time<100){
+        time = time.toFixed(2);
+    }
+    else if (time<1000){
+        time = time.toFixed(1);
+    }
+    else{
+        time = time.toFixed(0);
+    }
+    $("#timeDisplayValue").sevenSeg({ digits: 4, value: time });
+}
+
+
+$("#periodsDisplayValue").sevenSeg({ digits: 2, value: "00", decimalPoint: false });
+function setOscilations (osc){
+    $("#periodsDisplayValue").sevenSeg({ digits: 2, value: osc, decimalPoint: false });
+}
+
+//Checkbox for if the sim aut o resumes when measurement is pressed
+const contOnMeasure = document.querySelector( '#contMeasure' )
+
+
+//When period set changes
+document.body.addEventListener('change', function (e) {
+    let target = e.target;
+    switch (target.id) {
+        case 'osc1':
+            parameters.oscillations = 1;
+            break;
+        case 'osc2':
+            parameters.oscillations = 2;
+            break;
+        case 'osc5':
+            parameters.oscillations = 5;
+            break;
+        case 'osc10':
+            parameters.oscillations = 10;
+            break;
+        case 'osc20':
+            parameters.oscillations = 20;
+            break;
+    }
+    parameters.timeCounter = 0;
+    setTime(0);
+    parameters.oscilationCounter = -0.1;
+    counting = false;
+});

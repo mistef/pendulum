@@ -68,34 +68,70 @@
         <button type="button" id="switchCamera">Κάμερα: <span id = "switchCameraText">Ημικύκλιο</span></button>
 
         <div id="parametersLeft">
+          <div id="measureFirstRow">
+            <div id="timeDisplay">
+              <div id="timeDisplayValue"></div>
+              <div id="timeDisplaySec">s</div>
+            </div>
+            <div id="periodsDisplay">
+              <div id="periodsDisplayValue"></div>
+            </div>
+          </div>
+          <div id="measureSecRow">
+            <div id="oscilationText">Περίοδοι</div>
+          </div>
+          <div id="measureThirdRow">
+            <button type="button" id="resetButton">Μέτρηση</button>
+            <div id = selectOscilations>
+              <input type="radio" name="osc" id="osc1" value="1"  checked="checked" />
+              <label for="osc1" class="selectOsc">1</label>
+              <input type="radio" name="osc" id="osc2" value="2"/>
+              <label for="osc2" class="selectOsc">2</label>
+              <input type="radio" name="osc" id="osc5" value="5" />
+              <label for="osc5" class="selectOsc">5</label>
+              <input type="radio" name="osc" id="osc10" value="10"/>
+              <label for="osc10" class="selectOsc">10</label>
+              <input type="radio" name="osc" id="osc20" value="20" />
+              <label for="osc20" class="selectOsc">20</label>
+            </div>
+          </div>
+          <div id="measureFourthRow">
+            <input type="checkbox" id="contMeasure" name="continue" value="On" checked="checked">
+            <label for="contMeasure" id="contMeasureText" class="checkText">Συνέχιση προσομοίωσης</label><br>
+          </div>
+          <div id="measureLastRow">
+            <div id="errorText">Τυπική απόκλιση μέτρησης</div>
+            <label class="radioLabel">
+              <input type="radio" name="error" id="radio50" value="2"  checked="checked" />
+              <label for="radio2" class="selectErr">50ms</label>
+              <input type="radio" name="error" id="radio100" value="5"/>
+              <label for="radio5" class="selectErr">100ms</label>
+              <input type="radio" name="error" id="radio200" value="10" />
+              <label for="radio10" class="selectErr">200ms</label>
+            </label>
+          </div>
           <div id="thirdCol" class="col" style="display: none;">
-
           <div id="timeText" class="infoText">Επιτάχυνση χρόνου: 1,0x</div>
           <input type="range" min="1" max="10" value="2" class="slider" id="timeSlider">
 
           </div>
 
-        <div id="fourthCol" class="col">
+        <div id="fourthCol" class="col" style = "display:none;">
           <div id="oscText" class="infoText">Ταλαντώσεις: 10</div>
           <input type="range" min="1" max="100" value="10" class="slider" id="oscSlider">
           <div id="oscTimeText" class="infoText">0/10 &emsp; 0,000s</div>
 
 
-          <button type="button" id="resetButton">Μέτρηση</button>
+
 
           <div id="errorInfo" class="infoText">Τυπική απόκλιση (ms)</div>
-          <label class="radioLabel">
-            <input type="radio" name="error" id="radio2" value="2"  checked="checked" />
-            <label for="radio2">50</label>
-            <input type="radio" name="error" id="radio5" value="5"/>
-            <label for="radio5">100</label>
-            <input type="radio" name="error" id="radio10" value="10" />
-            <label for="radio10">200</label>
-          </label>
-          
         </div>
         </div>
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <script src="sevenSeg.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 </html>
