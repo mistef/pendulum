@@ -78,7 +78,7 @@ lengthSlider.addEventListener("input", function(){
 
         object.leq = moment/mass/radius
 
-        //console.log(object.leq)
+        // console.log(object.leq)
         //this is in order to not make the object jump
         let theta = Math.atan(-object.x/(object.topP - object.y));
         let delta = distanceString()-parameters.length
@@ -688,7 +688,7 @@ function positionStep(dt){
         x: 0,
         y: parameters.gravity*parameters.mass
     }
-    force.y *= parameters.length/object.leq
+    force.y *= (parameters.length + parameters.radius)/object.leq;
 
     //calculate the Foce of the String
     let fcoef = solidRod==true ? 20000 : 1000/parameters.elasticity;
@@ -777,6 +777,11 @@ function render( time ) {
             setTime(0/1000);
             setOscilations(Math.floor(timeShow));
         }
+
+        // if(!counting){
+        //     console.log(parameters.timeCounter/1000);
+        //     resetButton.dispatchEvent(new Event("click"));
+        // }
     }
 
 
