@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendulum</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="styleStats.css">
     <script type="importmap">
         {
           "imports": {
@@ -66,7 +67,7 @@
 
         </div>
         <button type="button" id="switchCamera">Κάμερα: <span id = "switchCameraText">Ημικύκλιο</span></button>
-
+        <button type="button" id="showStats">Προβολή Δεδομένων</span></button>
         <div id="parametersLeft">
           <div id="measureFirstRow">
             <div id="timeDisplay">
@@ -127,11 +128,36 @@
           <div id="errorInfo" class="infoText">Τυπική απόκλιση (ms)</div>
         </div>
         </div>
+        <div id="statsWindow" class="statsWindowBackground">
+          <div class="statsContent">
+            <div class="statsHeader">
+              <span class="close">&times;</span>
+              <h2>Δεδομένα</h2>
+            </div>
+            <div id = "mainStatsContainer">
+              <div id = "dataStatsContainer">
+
+              </div>
+              <div id = "secStatsContainer">
+                <div id = "chartStatsContainer">
+                  <canvas id="histoChart"></canvas>
+                </div>
+                <div id = "controlStatsContainer">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.6/sl-1.7.0/datatables.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
     <script src="../sevenSeg.js"></script>
     <script type="module" src="../main.js"></script>
+    <script type="module" src="statsWindow.js"></script>
 </body>
 </html>

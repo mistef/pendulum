@@ -1,0 +1,119 @@
+#showStats{
+    width: 17%;
+    border-radius: 10px;
+    background-color:#2e2e2e;
+    color:white;
+    font-size:1.2cqw;
+    border-style: solid;
+    position: absolute;
+    bottom:13%;
+    left: 42.5%;
+    width: 14.9%;
+}
+
+.statsWindowBackground {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.statsContent {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    top:5%;
+}
+
+.statsHeader {
+    padding: 2px 16px;
+    background-color: #f4471f;;
+    color: white;  
+    font-size: 1cqw;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -1000px; opacity: 0}
+    to {top: 5%; opacity: 1}
+}
+
+.close {
+    color: #ffffff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#mainStatsContainer{
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* border-style: solid; */
+    margin: 1%;
+    width:98%;
+    aspect-ratio: 4/3;
+    display: flex;
+}
+
+#dataStatsContainer{
+    display: inline-block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width:33%;
+    height: 100%;
+    margin:0.5%;
+    border-style: solid;
+}
+
+#secStatsContainer{
+    display: inline-block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width:64.5%;
+    height: 100%;
+    margin:0.5%;
+    margin-left: 0;
+    /* border-style: solid; */
+
+}
+
+#chartStatsContainer{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 45%;
+    margin:0.5%;
+    /* border-style: solid; */
+}
+
+#controlStatsContainer{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 54%;
+    margin:0.5%;
+    border-style: solid;
+}
+
+#histoChart{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
