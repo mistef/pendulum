@@ -82,6 +82,7 @@
     height: 100%;
     margin:0.5%;
     border-style: solid;
+    overflow: auto;
 }
 
 #secStatsContainer{
@@ -116,4 +117,27 @@
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+#autoMeasureText{
+    font-size: 2.5cqw;
+    padding: 0;
+    
+}
+
+#recMeasureText{
+    font-size: 2.5cqw;
+    padding: 0;
+}
+
+#autoMeasure{
+    height:2cqw;
+    width:2cqw;
+    margin:0;
+}
+
+#recMeasure{
+    height:2cqw;
+    width:2cqw;
+    margin:0;
 }

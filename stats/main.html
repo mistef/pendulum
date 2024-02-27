@@ -6,6 +6,7 @@
     <title>Pendulum</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="styleStats.css">
+    <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.6/sl-1.7.0/datatables.min.css" rel="stylesheet">
     <script type="importmap">
         {
           "imports": {
@@ -99,6 +100,10 @@
           <div id="measureFourthRow">
             <input type="checkbox" id="contMeasure" name="continue" value="On" checked="checked">
             <label for="contMeasure" id="contMeasureText" class="checkText">Συνέχιση προσομοίωσης</label><br>
+            <input type="checkbox" id="autoMeasure" name="autoM" value="On">
+            <label for="autoMeasure" id="autoMeasureText" class="checkText">Συνεχείς μετρήσεις</label><br>
+            <input type="checkbox" id="recMeasure" name="recM" value="On">
+            <label for="recMeasure" id="recMeasureText" class="checkText">Καταγραφή μετρήσεων</label><br>
           </div>
           <div id="measureLastRow">
             <div id="errorText">Τυπική απόκλιση μέτρησης</div>
@@ -136,7 +141,13 @@
             </div>
             <div id = "mainStatsContainer">
               <div id = "dataStatsContainer">
-
+                <table id="measurementsTable" style="width:100%;">
+                  <thead>
+                      <tr>
+                          <th>Μετρήσεις</th>
+                      </tr>
+                  </thead>
+              </table>
               </div>
               <div id = "secStatsContainer">
                 <div id = "chartStatsContainer">
@@ -157,7 +168,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
     <script src="../sevenSeg.js"></script>
-    <script type="module" src="../main.js"></script>
+    <script type="module" src="main.js"></script>
     <script type="module" src="statsWindow.js"></script>
 </body>
 </html>
