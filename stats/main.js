@@ -749,47 +749,51 @@ function render( time ) {
     const delta = time - oldTime; //in ms
     oldTime = time;
 
-    let xprev = object.x;
-    for (let i = 0; i < 2*parameters.time; i++){
-        calculateObjectPosition(delta/2);
+
+    for (let i = 0; i < parameters.time; i++){
+        let xprev = object.x;
+        calculateObjectPosition(delta);
+
+
+        if (counting){
+            //console.log(parameters.oscilationCounter)
+            if(xprev/object.x < 0){
+                parameters.oscilationCounter += 1;
+                if (Math.round(parameters.oscilationCounter - 1) >= 2*Math.round(parameters.oscillations)){
+                    counting = false;
+                }
+            }
+            if (parameters.oscilationCounter > 0){
+                parameters.timeCounter += delta//*parameters.time;//*parameters.errorFactor
+            }
+            let timeShow = (parameters.oscilationCounter - 1)/2
+            timeShow = timeShow < 0 ? 0 : timeShow
+            if (parameters.timeCounter>200){
+                oscTimeText.textContent = Math.floor(timeShow) + "/" + Math.round(parameters.oscillations) + " \u2003 "+ (parameters.timeCounter/1000).toFixed(3).toString().replace(".", ",") +"s"
+                setOscilations(Math.floor(timeShow));
+                setTime(parameters.timeCounter/1000);
+            }
+            else{
+                oscTimeText.textContent = Math.floor(timeShow) + "/" + Math.round(parameters.oscillations) + " \u2003 "+ (0/1000).toFixed(3).toString().replace(".", ",") +"s"
+                setTime(0/1000);
+                setOscilations(Math.floor(timeShow));
+            }
+    
+            if(!counting){ //When it has finished counting
+                //console.log(parameters.timeCounter/1000);
+                //resetButton.dispatchEvent(new Event("click"));
+                if (recMeasureEnabled){
+                    addNewMeasurement((parameters.timeCounter/1000).toFixed(3).toString().replace(".", ","))
+                }
+                if (recAutoEnabled){
+                    resetButton.dispatchEvent(new Event("click"));
+                }
+            }
+        }
     }
 
 
-    if (counting){
-        //console.log(parameters.oscilationCounter)
-        if(xprev/object.x < 0){
-            parameters.oscilationCounter += 1;
-            if (Math.round(parameters.oscilationCounter - 1) >= 2*Math.round(parameters.oscillations)){
-                counting = false;
-            }
-        }
-        if (parameters.oscilationCounter > 0){
-            parameters.timeCounter += delta*parameters.time;//*parameters.errorFactor
-        }
-        let timeShow = (parameters.oscilationCounter - 1)/2
-        timeShow = timeShow < 0 ? 0 : timeShow
-        if (parameters.timeCounter>200){
-            oscTimeText.textContent = Math.floor(timeShow) + "/" + Math.round(parameters.oscillations) + " \u2003 "+ (parameters.timeCounter/1000).toFixed(3).toString().replace(".", ",") +"s"
-            setOscilations(Math.floor(timeShow));
-            setTime(parameters.timeCounter/1000);
-        }
-        else{
-            oscTimeText.textContent = Math.floor(timeShow) + "/" + Math.round(parameters.oscillations) + " \u2003 "+ (0/1000).toFixed(3).toString().replace(".", ",") +"s"
-            setTime(0/1000);
-            setOscilations(Math.floor(timeShow));
-        }
-
-        if(!counting){ //When it has finished counting
-            //console.log(parameters.timeCounter/1000);
-            //resetButton.dispatchEvent(new Event("click"));
-            if (recMeasureEnabled){
-                addNewMeasurement((parameters.timeCounter/1000).toFixed(3).toString().replace(".", ","))
-            }
-            if (recAutoEnabled){
-                resetButton.dispatchEvent(new Event("click"));
-            }
-        }
-    }
+    
 
 
 

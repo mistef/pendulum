@@ -183,7 +183,7 @@ function findIndexOfLabel(value, labels){
 //     }
 // }
 //removeData();
-setChartLabels(1.8, 2.3, 20);
+setChartLabels(1.8, 2.3, 10);
 
 //setChartLabels(0.3, 1.3, 20);
 // addData(myChart, 3, 14) ;
