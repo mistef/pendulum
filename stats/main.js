@@ -1374,14 +1374,14 @@ buttonFastForward.addEventListener("click", function(){
     if (fastForward){
         parameters.timeOn = 4;
         document.getElementById("fastForwardImg").src = "../fastForwardSvgActive.svg";
-        
-        if(!timeStopped){
-            parameters.time = 4;
-        }
     }
     else{
         parameters.timeOn = 1;
         document.getElementById("fastForwardImg").src = "../fastForwardSvg.svg";
+    }
+
+    if(!timeStopped){
+        parameters.time = parameters.timeOn;
     }
     
 })
