@@ -156,12 +156,12 @@
                 </div>
                 <div id = "controlStatsContainer">
                   <div id="stats1Row" class="statsRow">
-                    <button type="button" id="startHistogramRec">Εκκίνηση μέτρησης</button>
+                    <button type="button" id="startHistogramRec">Εκκίνηση Μετρήσεων</button>
                   </div>
                   <div id="stats2Row" class="statsRow">
-                    <button type="button">Εκκαθάριση μετρήσεων</button>
-                    <button type="button">Διαγραφή επιλεγμένων μετρήσεων</button>
-                    <button type="button">Αντιγραφή πίνακα</button>
+                    <button type="button" id="deleteEverything">Εκκαθάριση μετρήσεων</button>
+                    <button type="button" id = "deleteSelected">Διαγραφή επιλεγμένων μετρήσεων</button>
+                    <!-- <button type="button">Αντιγραφή πίνακα</button> -->
                   </div>
                   <div id="stats3Row" class="statsRow">Ρύθμιση διαγράμματος</div>
                   <div id="stats4Row" class="statsRow">
@@ -172,12 +172,12 @@
                   <div id="stats6Row" class="statsRow">
                     <div id="stats6RowFirst" class="statsRowSub">
                       <div class="statsRowSubFirst">Από</div>
-                      <input type="number"  value="1" id="fromHisto">
+                      <input type="number"  value="1" step="0.1" id="fromHisto">
                       <div class="statsRowSubSec">s</div>
                     </div>
                     <div id="stats6RowSec" class="statsRowSub">
                       <div class="statsRowSubFirst">Έως</div>
-                      <input type="number" value="2" id="untilHisto">
+                      <input type="number" value="2"  step="0.1" id="untilHisto">
                       <div class="statsRowSubSec">s</div>
                     </div>
                   </div>

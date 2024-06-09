@@ -1,5 +1,5 @@
 
-
+import { object, parameters, switchAutoMeasurement} from './main.js'
 
 var statsWindow = document.getElementById("statsWindow");
 
@@ -21,8 +21,9 @@ window.onclick = function(event) {
     }
 }
 
+let isRecording = false;
 document.getElementById("startHistogramRec").onclick = function() {
-    if(1){
+    if((parameters.time != 0 || Math.abs(object.x)<0.02)&&(!isRecording)){
         Swal.fire({
             html: `
             Για να εκκινήσει η μέτρηση πρέπει:<br> <br>
@@ -30,11 +31,29 @@ document.getElementById("startHistogramRec").onclick = function() {
             2. Nα έχει τοποθετηθει το εκκρεμές σε μια κατάσταση με αρχικές συνθήκες.
           `});
     }
+    else if (!isRecording){
+        //document.getElementById("osc1").click(); //set one oscilation
+        document.getElementById("resetButton").click();
+        switchAutoMeasurement();
+        document.getElementById("startHistogramRec").textContent = "Σταμάτημα Μέτρησης"
+        isRecording = true;
+    }
+    else if (isRecording){
+        switchAutoMeasurement();
+        document.getElementById("startHistogramRec").textContent = "Εκκίνηση Μετρήσεων"
+        isRecording = false;
+    }
+
 }
 
 var ctx = document.getElementById("histoChart").getContext('2d');
 var dataValues = [12, 19, 3, 5];
 var dataLabels = [1.7, 1.8, 1.9, 2, 2.1, 2.2];
+let chartLimits = {
+    min:1,
+    max:2,
+    bins:10
+}
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -115,14 +134,24 @@ let table = new DataTable('#measurementsTable', {
       }
 });
 
-export function addNewMeasurement(x) {
-    table.row
+export function addNewMeasurement(x, alsoTable=true) {
+    let num;
+    if(alsoTable){
+        table.row
         .add([x])
         .draw(true);
-    let num = Number(x.replace(",","."));
-    data.push(num);
-    myChart.data.datasets[0].data[findIndexOfLabel(num, labels)]++;
-    myChart.update();
+        num = Number(x.replace(",","."));
+        data.push(num);
+        myChart.data.datasets[0].data[findIndexOfLabel(num, labels)]++;
+        myChart.update();
+    }
+    else{
+        data.push(x);
+        myChart.data.datasets[0].data[findIndexOfLabel(x, labels)]++;
+        myChart.update();
+    }
+    
+
 }
 
 //on del key press remove rows
@@ -193,7 +222,74 @@ function findIndexOfLabel(value, labels){
 //     }
 // }
 //removeData();
-setChartLabels(1.8, 2.3, 10);
+setChartLabels(1, 2, 10);
 
 //setChartLabels(0.3, 1.3, 20);
 // addData(myChart, 3, 14) ;
+
+
+$(document).on('keyup', function ( e ) { //when pressing del delete row
+    if ( e.keyCode === 46  && table.rows( { selected: true } ).any() ) { // 46 == delete key
+        table.rows('.selected').remove().draw(false);
+        clearAndUpdateChart();
+    }
+  } );
+
+  const deleteSelected = document.getElementById("deleteSelected");
+
+deleteSelected.addEventListener('click', function() {
+    table.rows('.selected').remove().draw(false);
+    clearAndUpdateChart();
+});
+
+const deleteEverything = document.getElementById("deleteEverything");
+
+deleteEverything.addEventListener('click', function() {
+    table.rows().remove().draw(false);
+    clearAndUpdateChart();
+});
+
+function clearAndUpdateChart(){
+    data.length = 0;
+    let bars = myChart.data.datasets[0].data.length;
+    for(let i = 0; i < bars; i++){
+        myChart.data.datasets[0].data[i]=0;
+    }
+    
+    let data2 = table.rows().data();
+
+    for(let i = 0; i < data2.length; i++){
+        addNewMeasurement(parseNum(data2[i][0]), false);
+    }
+}
+
+function addData2(chart, x, values) {
+
+    values.push(x);
+    sessionStorage.setItem("chartData", values);
+    chart.update();
+}
+
+function parseNum (string){
+    return parseFloat(string.replace(".", "").replace(",", "."));
+}
+
+document.getElementById("binSlider").addEventListener("input", function(){
+    chartLimits.bins = Number(this.value);
+    document.getElementById("binNumberText").textContent = this.value;
+    
+    setChartLabels(chartLimits.min, chartLimits.max, chartLimits.bins);
+    clearAndUpdateChart();
+});
+
+document.getElementById("fromHisto").addEventListener("change", function(){
+    chartLimits.min = Number(this.value)
+    setChartLabels(chartLimits.min, chartLimits.max, chartLimits.bins);
+    clearAndUpdateChart();
+});
+
+document.getElementById("untilHisto").addEventListener("change", function(){
+    chartLimits.max = Number(this.value)
+    setChartLabels(chartLimits.min, chartLimits.max, chartLimits.bins);
+    clearAndUpdateChart();
+});

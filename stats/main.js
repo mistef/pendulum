@@ -288,6 +288,7 @@ let parameters = {
     errorFactor: 1,
     timeOn: 1
 }
+export{parameters, object}
 
 let holding = false;
 let solidRod = false;
@@ -753,7 +754,6 @@ function render( time ) {
     for (let i = 0; i < parameters.time; i++){
         let xprev = object.x;
         calculateObjectPosition(delta);
-
 
         if (counting){
             //console.log(parameters.oscilationCounter)
@@ -1493,24 +1493,42 @@ document.body.addEventListener('change', function (e) {
     switch (target.id) {
         case 'osc1':
             parameters.oscillations = 1;
+            counting = false;
+            parameters.timeCounter = 0;
+            setTime(0);
+            parameters.oscilationCounter = -0.1;
             break;
         case 'osc2':
             parameters.oscillations = 2;
+            counting = false;
+            parameters.timeCounter = 0;
+            setTime(0);
+            parameters.oscilationCounter = -0.1;
             break;
         case 'osc5':
             parameters.oscillations = 5;
+            counting = false;
+            parameters.timeCounter = 0;
+            setTime(0);
+            parameters.oscilationCounter = -0.1;
             break;
         case 'osc10':
             parameters.oscillations = 10;
+            counting = false;
+            parameters.timeCounter = 0;
+            setTime(0);
+            parameters.oscilationCounter = -0.1;
             break;
         case 'osc20':
             parameters.oscillations = 20;
+            counting = false;
+            parameters.timeCounter = 0;
+            setTime(0);
+            parameters.oscilationCounter = -0.1;
             break;
     }
-    parameters.timeCounter = 0;
-    setTime(0);
-    parameters.oscilationCounter = -0.1;
-    counting = false;
+
+    
 });
 
 
@@ -1536,3 +1554,16 @@ recAuto.addEventListener("change", function(){
         recAutoEnabled = false;
     }
 })
+
+function switchAutoMeasurement(){
+    if (recAutoEnabled){
+        recAutoEnabled = false;
+        recMeasureEnabled = false;
+    }
+    else{
+        recAutoEnabled = true;
+        recMeasureEnabled = true;
+    }
+}
+
+export{switchAutoMeasurement}

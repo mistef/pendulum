@@ -141,3 +141,9 @@
     width:2cqw;
     margin:0;
 }
+
+.money input[type=number]::-webkit-inner-spin-button, 
+.money input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

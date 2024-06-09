@@ -432,3 +432,16 @@ input[type=checkbox] {
     margin-top: 2.5%;
     background: #2e2e2e;
 }
+
+
+#measureFourthRow{
+    display: none;
+}
+
+#elasticityTextHead{
+    display: none;
+}
+
+#elasticitySlider{
+    display: none;
+}
