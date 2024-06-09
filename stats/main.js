@@ -847,13 +847,18 @@ requestAnimationFrame( render )
 
 resizeCanvas();
 
-window.addEventListener('mousedown', event => {
+window.addEventListener('pointerdown', event => {
     // Check if it picks the object
     raycaster.setFromCamera(moveMouse, camera);
     const intersect = raycaster.intersectObject( obj );
 
+    
+    
+    
+
     if (intersect.length ){
         //intersect[0].object.material.color.set( 0xff0000 );
+        document.getElementById("container").style.touchAction = "none"; //disable scrolling on mobile
         holding = true;
         object.ux = 0;
         object.uy = 0;
@@ -861,8 +866,9 @@ window.addEventListener('mousedown', event => {
 
 });
 
-window.addEventListener('mouseup', event => {
+window.addEventListener('pointerup', event => {
     holding = false;
+    document.getElementById("container").style.touchAction = "auto"; //reenable scrolling on mobile
 });
 
 canvas.addEventListener('mouseleave', event => {
@@ -871,14 +877,15 @@ canvas.addEventListener('mouseleave', event => {
 
 
 
-window.addEventListener('mousemove', event => {
-    moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    moveMouse.x*= window.innerWidth/canvas.width
+window.addEventListener('pointermove', event => {
+    //moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //moveMouse.x*= window.innerWidth/canvas.width
     //console.log(window.innerWidth);
     //console.log(canvas.width)
-    moveMouse.y = - (event.clientY / canvas.height) * 2 + 1;
-    //moveMouse.y*= window.innerHeight/canvas.height
-    //moveMouse.y += window.innerHeight-canvas.height;
+
+    let rect = renderer.domElement.getBoundingClientRect();
+    moveMouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+    moveMouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
     if (holding){
         raycaster.setFromCamera(moveMouse, camera);
         const intersect = raycaster.intersectObject( plane );
@@ -930,6 +937,69 @@ window.addEventListener('mousemove', event => {
         //obj.position.z = intersect[0].point.z
     }
 });
+
+// window.addEventListener('touchstart', event => {
+//     //moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+//     //moveMouse.x*= window.innerWidth/canvas.width
+//     //console.log(window.innerWidth);
+//     //console.log(canvas.width)
+
+//     let rect = renderer.domElement.getBoundingClientRect();
+//     moveMouse.y = - ( ( event.touches[0].pageY - rect.top ) / rect.height ) * 2 + 1;
+//     moveMouse.x = ( ( event.touches[0].pageX - rect.left ) / rect.width ) * 2 - 1;
+//     if (holding){
+//         raycaster.setFromCamera(moveMouse, camera);
+//         const intersect = raycaster.intersectObject( plane );
+//         //console.log(raycaster.ray.direction.x);
+//         //move the object to the mouse position
+//         //obj.position.x = raycaster.ray.direction.x
+//         //obj.position.y = intersect[0].point.x
+//         //console.log(intersect[0].point.x);
+
+
+//         obj.position.x = intersect[0].point.x
+//         object.x = intersect[0].point.x
+
+//         obj.position.y = intersect[0].point.y
+//         object.y = intersect[0].point.y
+
+//         // if (intersect[0].point.y > object.topP ){
+//         //     obj.position.y = object.topP
+//         //     object.y = object.topP
+//         // }
+
+//         if (distanceString() > parameters.length){
+//             let theta = Math.atan(-object.x/(object.topP - object.y));
+//             let delta = distanceString()-parameters.length
+//             if(object.y>object.topP){
+//                 delta *= -1;
+//             }
+//             object.x += Math.sin(theta)*delta
+//             object.y += Math.cos(theta)*delta
+//             obj.position.x = object.x
+//             obj.position.y = object.y
+//         }
+
+//         if (solidRod){
+//             let theta = Math.atan(-object.x/(object.topP - object.y));
+//             let delta = distanceString()-parameters.length
+//             if(object.y>object.topP){
+//                 delta *= -1;
+//             }
+//             object.x += Math.sin(theta)*delta
+//             object.y += Math.cos(theta)*delta
+//             obj.position.x = object.x
+//             obj.position.y = object.y
+
+//         }
+
+
+
+//         //obj.position.z = intersect[0].point.z
+//     }
+// });
+
+
 
 function distanceString(){
     let x = object.x

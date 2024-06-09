@@ -6,6 +6,7 @@
     <title>Pendulum</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="styleStats.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.6/sl-1.7.0/datatables.min.css" rel="stylesheet">
     <script type="importmap">
         {
@@ -68,7 +69,7 @@
 
         </div>
         <button type="button" id="switchCamera">Κάμερα: <span id = "switchCameraText">Ημικύκλιο</span></button>
-        <button type="button" id="showStats">Προβολή Δεδομένων</span></button>
+        <button type="button" id="showStats">Ιστόγραμμα</span></button>
         <div id="parametersLeft">
           <div id="measureFirstRow">
             <div id="timeDisplay">
@@ -154,7 +155,32 @@
                   <canvas id="histoChart"></canvas>
                 </div>
                 <div id = "controlStatsContainer">
-                  
+                  <div id="stats1Row" class="statsRow">
+                    <button type="button" id="startHistogramRec">Εκκίνηση μέτρησης</button>
+                  </div>
+                  <div id="stats2Row" class="statsRow">
+                    <button type="button">Εκκαθάριση μετρήσεων</button>
+                    <button type="button">Διαγραφή επιλεγμένων μετρήσεων</button>
+                    <button type="button">Αντιγραφή πίνακα</button>
+                  </div>
+                  <div id="stats3Row" class="statsRow">Ρύθμιση διαγράμματος</div>
+                  <div id="stats4Row" class="statsRow">
+                    <div id="binText">Αριθμός μπαρών: <span id="binNumberText">10</span></div>
+                    <input type="range" min="5" max="20" value="10" class="slider" id="binSlider">
+                  </div>
+                  <div id="stats5Row" class="statsRow">Περιοχή:</div>
+                  <div id="stats6Row" class="statsRow">
+                    <div id="stats6RowFirst" class="statsRowSub">
+                      <div class="statsRowSubFirst">Από</div>
+                      <input type="number"  value="1" id="fromHisto">
+                      <div class="statsRowSubSec">s</div>
+                    </div>
+                    <div id="stats6RowSec" class="statsRowSub">
+                      <div class="statsRowSubFirst">Έως</div>
+                      <input type="number" value="2" id="untilHisto">
+                      <div class="statsRowSubSec">s</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,6 +188,7 @@
 
         </div>
     </div>
+    <script src="./sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-1.13.6/sl-1.7.0/datatables.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>

@@ -29,6 +29,7 @@ body{
     min-height: 600px;
     min-width: 800px;
     container-type: inline-size;
+    /* touch-action: none; */
 }
 
 #canvasThree{

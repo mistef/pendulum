@@ -21,6 +21,16 @@ window.onclick = function(event) {
     }
 }
 
+document.getElementById("startHistogramRec").onclick = function() {
+    if(1){
+        Swal.fire({
+            html: `
+            Για να εκκινήσει η μέτρηση πρέπει:<br> <br>
+            1. Nα είναι σταμματημένος ο χρόνος <br> <br>
+            2. Nα έχει τοποθετηθει το εκκρεμές σε μια κατάσταση με αρχικές συνθήκες.
+          `});
+    }
+}
 
 var ctx = document.getElementById("histoChart").getContext('2d');
 var dataValues = [12, 19, 3, 5];
