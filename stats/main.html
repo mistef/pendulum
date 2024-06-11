@@ -138,7 +138,7 @@
           <div class="statsContent">
             <div class="statsHeader">
               <span class="close">&times;</span>
-              <h2>Δεδομένα</h2>
+              <h2>Ιστόγραμμα μέτρησης</h2>
             </div>
             <div id = "mainStatsContainer">
               <div id = "dataStatsContainer">
@@ -156,11 +156,11 @@
                 </div>
                 <div id = "controlStatsContainer">
                   <div id="stats1Row" class="statsRow">
-                    <button type="button" id="startHistogramRec">Εκκίνηση Μετρήσεων</button>
+                    <button type="button" id="startHistogramRec" class="statsButton">Εκκίνηση Μετρήσεων</button>
                   </div>
                   <div id="stats2Row" class="statsRow">
-                    <button type="button" id="deleteEverything">Εκκαθάριση μετρήσεων</button>
-                    <button type="button" id = "deleteSelected">Διαγραφή επιλεγμένων μετρήσεων</button>
+                    <button type="button" id="deleteEverything" class="statsButton">Εκκαθάριση μετρήσεων</button>
+                    <button type="button" id = "deleteSelected" class="statsButton">Διαγραφή επιλεγμένων μετρήσεων</button>
                     <!-- <button type="button">Αντιγραφή πίνακα</button> -->
                   </div>
                   <div id="stats3Row" class="statsRow">Ρύθμιση διαγράμματος</div>
@@ -168,16 +168,17 @@
                     <div id="binText">Αριθμός μπαρών: <span id="binNumberText">10</span></div>
                     <input type="range" min="5" max="20" value="10" class="slider" id="binSlider">
                   </div>
-                  <div id="stats5Row" class="statsRow">Περιοχή:</div>
+
                   <div id="stats6Row" class="statsRow">
+                    <div id="stats5Row" >Περιοχή:</div>
                     <div id="stats6RowFirst" class="statsRowSub">
                       <div class="statsRowSubFirst">Από</div>
-                      <input type="number"  value="1" step="0.1" id="fromHisto">
+                      <input type="number"  value="1" step="0.1" id="fromHisto" class="inputNumsStat">
                       <div class="statsRowSubSec">s</div>
                     </div>
                     <div id="stats6RowSec" class="statsRowSub">
                       <div class="statsRowSubFirst">Έως</div>
-                      <input type="number" value="2"  step="0.1" id="untilHisto">
+                      <input type="number" value="2"  step="0.1" id="untilHisto" class="inputNumsStat">
                       <div class="statsRowSubSec">s</div>
                     </div>
                   </div>

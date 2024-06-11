@@ -39,7 +39,7 @@
 
 .statsHeader {
     padding: 2px 16px;
-    background-color: #f4471f;;
+    background-color: #ff8800;;
     color: white;  
     font-size: 1cqw;
 }
@@ -68,8 +68,8 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     /* border-style: solid; */
-    margin: 1%;
-    width:98%;
+    padding: 2%;
+    width:100%;
     aspect-ratio: 4/3;
     display: flex;
 }
@@ -81,7 +81,7 @@
     width:33%;
     height: 100%;
     margin:0.5%;
-    border-style: solid;
+    /* border-style: solid; */
     overflow: auto;
 }
 
@@ -108,9 +108,12 @@
 #controlStatsContainer{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    height: 54%;
+    height: fit-content;
     margin:0.5%;
-    border-style: solid;
+    /* border-style: solid; */
+    container-type:inline-size;
+    background-color: #91caff;
+    border-radius: 15px;
 }
 
 #histoChart{
@@ -146,4 +149,101 @@
 .money input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+
+#elasticitySlider{
+    display: none;
+}
+
+.statsRow{
+    display: flex;
+    justify-content: space-evenly;
+    margin:1cqh;
+    align-items: center;
+}
+
+.statsRowSub{
+    display: flex;
+    align-items: center;
+}
+
+.inputNumsStat{
+    width:5cqh;
+    margin-left: 1cqh;
+    margin-right: 1cqh;
+    border-radius: 5px;
+    font-size:1.8cqh;
+    font-weight: bold;
+}
+
+#stats5Row{
+    color:rgb(0, 0, 0);
+    padding:0.5cqh;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 1.7cqh;
+    padding:1cqh;
+}
+
+
+.statsButton{
+    background-color: #686868;
+    color:white;
+    padding:1cqh;
+    font-size: 1.5cqh;
+    border-style: none;
+    width: 30%;
+    height: 5cqh;
+    border-radius: 10px;
+    transition-duration: 150ms;
+}
+
+.statsButton:hover{
+    background-color: #414141;
+    transform: scale(1.02);
+}
+
+.statsButton:active{
+    background-color: #414141;
+    transform: scale(0.98);
+}
+
+#startHistogramRec{
+    font-weight: bold;
+    background-color: #db4a29;
+}
+
+#stats3Row{
+    font-size: 2cqh;
+    font-weight: bold;
+    border-top:3px solid black;
+    margin-left:0;
+    margin-right:0;
+    padding-top:1.5cqh;
+}
+
+#binSlider{
+    width: 50%;
+    display: block;
+    margin:3cqh;
+}
+
+#binText{
+    display: inline-block;
+    font-size: 1.8cqh;
+}
+
+#binNumberText{
+    font-weight: bold;
+    color:blue;
+    font-size: 2cqh;
+}
+
+#mainStatsContainer{
+    background-color:#dcf5ff;
+}
+
+.statsRowSub div{
+    font-size:1.8cqh;
 }
